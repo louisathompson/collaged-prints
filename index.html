@@ -11,10 +11,10 @@
 
 <nav class="site-nav">
   <div class="container">
-    <a href="index.html" class="wordmark">Collaged Prints</a>
+    <a href="index.html" class="wordmark"><span class="wordmark-line1">Collaged</span> <span class="wordmark-line2">Prints</span></a>
     <ul class="links">
-      <li><a href="shop.html">Print Shop</a></li>
-      <li><span class="hide-mobile"><a href="cart.html" class="cart-link">Cart <span class="cart-count" id="navCartCount">0</span></a></span></li>
+      <li class="nav-shop"><a href="shop.html">Print Shop</a></li>
+      <li class="nav-cart"><a href="cart.html" class="cart-link">Cart <span class="cart-count" id="navCartCount">0</span></a></li>
     </ul>
   </div>
 </nav>
@@ -22,32 +22,32 @@
 <header class="board" id="board">
   <div class="board-intro">
     <p class="eyebrow">12&Prime; × 16&Prime; custom prints</p>
-    <h1 class="board-title">College meets<br>collaged.</h1>
-    <p class="board-sub">Pick a print, tell me what to change, I'll make it yours.<br>Drag the pieces around — this board is yours to mess with too.</p>
-    <a href="shop.html" class="btn btn-cherry">Browse templates</a>
+    <h1 class="board-title"><span class="board-title-line1">College meets</span> <span class="board-title-line2">Collaged.</span></h1>
+    <p class="board-sub">Pick a print, tell me what to change, I'll make it yours.</p>
+    <a href="shop.html" class="btn btn-cherry">Print Shop</a>
   </div>
 
   <!-- Draggable collage pieces. Swap the src on these <img> tags for your
        own PNGs — drop files into /assets/collage/ and update the paths. -->
-  <div class="drag-piece" data-rotate="-6" style="top:70%; left:80%; width:196px;">
+  <div class="drag-piece piece-dog" data-rotate="-6" style="top:70%; left:80%; width:196px;">
     <img src="assets/collage/collage-dog-embroidery.png" alt="" draggable="false">
   </div>
-  <div class="drag-piece" data-rotate="5" style="top:16%; left:56%; width:315px;">
+  <div class="drag-piece piece-book" data-rotate="5" style="top:16%; left:56%; width:315px;">
     <img src="assets/collage/collage-college-collage-book.png" alt="" draggable="false">
   </div>
-  <div class="drag-piece" data-rotate="-4" style="top:58%; left:46%; width:442px;">
+  <div class="drag-piece piece-pennant-pink" data-rotate="-4" style="top:58%; left:46%; width:442px;">
     <img src="assets/collage/collage-college-pennant.png" alt="" draggable="false">
   </div>
-  <div class="drag-piece" data-rotate="7" style="top:14%; left:82%; width:315px;">
+  <div class="drag-piece piece-yall" data-rotate="7" style="top:14%; left:82%; width:315px;">
     <img src="assets/collage/collage-yall-come-magnet.png" alt="" draggable="false">
   </div>
-  <div class="drag-piece" data-rotate="17" style="top:6%; left:34%; width:400px;">
+  <div class="drag-piece piece-pennant-red" data-rotate="17" style="top:6%; left:34%; width:400px;">
     <img src="assets/collage/collage-hamilton-pennant.png" alt="" draggable="false">
   </div>
-  <div class="drag-piece" data-rotate="9" style="top:34%; left:37%; width:272px;">
+  <div class="drag-piece piece-button" data-rotate="9" style="top:34%; left:37%; width:272px;">
     <img src="assets/collage/collage-drinking-school-button.png" alt="" draggable="false">
   </div>
-  <div class="drag-piece" data-rotate="-5" style="top:68%; left:10%; width:337px;">
+  <div class="drag-piece piece-postcard" data-rotate="-5" style="top:68%; left:10%; width:337px;">
     <img src="assets/collage/collage-thinking-of-you-postcard.png" alt="" draggable="false">
   </div>
 
@@ -59,7 +59,7 @@
   <div class="steps">
     <div class="step">
       <span class="step-num display">1</span>
-      <h3>Pick a template</h3>
+      <h3>Pick a print</h3>
       <p>Browse the shop and add any design to your cart.</p>
     </div>
     <div class="step">
@@ -78,7 +78,7 @@
 <footer class="site-footer">
   <div class="container">
     <span>&copy; <span id="year"></span> Collaged Prints</span>
-    <span>All designs are original and rights-owned by Collaged Prints.</span>
+    <span>Made by Weezy</span>
   </div>
 </footer>
 

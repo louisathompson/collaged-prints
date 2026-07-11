@@ -252,5 +252,37 @@ textarea:focus-visible,
 
 @media (max-width: 720px) {
   .site-nav .links { gap: 16px; }
-  .site-nav .links span.hide-mobile { display: none; }
+}
+
+@media (max-width: 480px) {
+  .site-nav .container {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+  }
+  .site-nav .wordmark {
+    grid-column: 1;
+    justify-self: start;
+    text-align: left;
+    font-size: 1.05rem;
+    line-height: 1.15;
+  }
+  .site-nav .wordmark .wordmark-line1,
+  .site-nav .wordmark .wordmark-line2 {
+    display: block;
+  }
+  .site-nav .links {
+    display: contents;
+  }
+  .site-nav .links li.nav-shop {
+    grid-column: 2;
+    justify-self: center;
+  }
+  .site-nav .links li.nav-cart {
+    grid-column: 3;
+    justify-self: end;
+  }
+  .site-nav .links a { font-size: 0.736rem; white-space: nowrap; }
+  .site-nav .cart-link { font-size: 0.68rem; padding: 6px 10px; white-space: nowrap; }
 }

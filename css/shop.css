@@ -20,6 +20,34 @@
   padding: 40px 0 96px;
 }
 
+@media (max-width: 480px) {
+  .template-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 24px 0 64px;
+  }
+  .tpl-info {
+    padding: 8px 8px 12px;
+  }
+  .tpl-info h3 {
+    font-size: 0.72rem;
+    line-height: 1.2;
+    height: 1.2em;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tpl-price {
+    font-size: 0.66rem;
+    margin: 0 0 6px;
+  }
+  .tpl-add {
+    font-size: 0.68rem;
+    padding: 8px 4px;
+  }
+}
+
 .tpl-card {
   background: var(--color-white);
   border-radius: var(--radius-md);

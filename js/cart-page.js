@@ -6,6 +6,17 @@ const sumTotal = document.getElementById('sumTotal');
 const contactForm = document.getElementById('contactForm');
 const placeOrderBtn = document.getElementById('placeOrderBtn');
 const formStatus = document.getElementById('formStatus');
+const payOptions = document.getElementById('payOptions');
+let selectedPaymentMethod = '';
+
+payOptions.addEventListener('click', (e) => {
+  const btn = e.target.closest('.pay-option');
+  if (!btn) return;
+  selectedPaymentMethod = btn.dataset.method;
+  payOptions.querySelectorAll('.pay-option').forEach(el => el.classList.remove('selected'));
+  btn.classList.add('selected');
+  formStatus.textContent = '';
+});
 
 function renderCart() {
   const items = Cart.get();
@@ -14,7 +25,7 @@ function renderCart() {
     cartItemsEl.innerHTML = `
       <div class="empty-cart">
         <p>Your cart is empty.</p>
-        <a href="shop.html" class="btn btn-outline">Browse templates</a>
+        <a href="shop.html" class="btn btn-outline">Print Shop</a>
       </div>`;
   } else {
     cartItemsEl.innerHTML = items.map(item => `
@@ -22,11 +33,12 @@ function renderCart() {
         <img src="${item.thumbnail}" alt="" class="cart-item-thumb">
         <div class="cart-item-body">
           <h3>${item.templateName}</h3>
-          <p class="cart-item-price">$15 base</p>
+          <p class="cart-item-price">$${item.price || 15} base</p>
+          ${item.skipCustomizationFee ? '' : `
           <label class="as-is-check">
             <input type="checkbox" class="cart-item-asis" ${item.asIs ? 'checked' : ''}>
             <span>As is, no changes &mdash; skip the customization fee</span>
-          </label>
+          </label>`}
           <label class="cart-item-label">Requested changes</label>
           <textarea class="cart-item-note" rows="3" placeholder="Describe what you'd like changed..." ${item.asIs ? 'disabled' : ''}>${item.customization}</textarea>
         </div>
@@ -40,11 +52,12 @@ function renderCart() {
 
 function updateSummary(items) {
   const templateCount = items.length;
-  const customizedCount = items.filter(i => !i.asIs && (i.customization || '').trim().length > 0).length;
+  const templatesTotal = items.reduce((sum, i) => sum + (i.price || 15), 0);
+  const customizedCount = items.filter(i => !i.asIs && !i.skipCustomizationFee && (i.customization || '').trim().length > 0).length;
   const shipping = templateCount ? 7 : 0;
   const total = Cart.baseEstimate(items);
 
-  sumTemplateCount.textContent = `${templateCount} item${templateCount === 1 ? '' : 's'} · $${templateCount * 15}`;
+  sumTemplateCount.textContent = `${templateCount} item${templateCount === 1 ? '' : 's'} · $${templatesTotal}`;
   sumCustomization.textContent = customizedCount ? `${customizedCount} item${customizedCount === 1 ? '' : 's'} · $${customizedCount * 10}` : '—';
   sumShipping.textContent = `$${shipping}`;
   sumTotal.textContent = `$${total}`;
@@ -79,10 +92,16 @@ contactForm.addEventListener('submit', async (e) => {
   const items = Cart.get();
   if (items.length === 0) return;
 
+  if (!selectedPaymentMethod) {
+    formStatus.textContent = 'Please choose a payment method (Venmo, CashApp, or Zelle) before submitting.';
+    return;
+  }
+
   const payload = {
     name: document.getElementById('custName').value.trim(),
     email: document.getElementById('custEmail').value.trim(),
     phone: document.getElementById('custPhone').value.trim(),
+    paymentMethod: selectedPaymentMethod,
     items: items.map(i => ({
       template: i.templateName,
       customization: i.customization || '(no changes requested)',

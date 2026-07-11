@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shop Templates — Collaged Prints</title>
+<title>Shop Prints — Collaged Prints</title>
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/shop.css">
 </head>
@@ -11,10 +11,10 @@
 
 <nav class="site-nav">
   <div class="container">
-    <a href="index.html" class="wordmark">Collaged Prints</a>
+    <a href="index.html" class="wordmark"><span class="wordmark-line1">Collaged</span> <span class="wordmark-line2">Prints</span></a>
     <ul class="links">
-      <li><a href="shop.html">Print Shop</a></li>
-      <li><a href="cart.html" class="cart-link">Cart <span class="cart-count" id="navCartCount">0</span></a></li>
+      <li class="nav-shop"><a href="shop.html">Print Shop</a></li>
+      <li class="nav-cart"><a href="cart.html" class="cart-link">Cart <span class="cart-count" id="navCartCount">0</span></a></li>
     </ul>
   </div>
 </nav>
@@ -22,7 +22,7 @@
 <header class="shop-hero container">
   <p class="eyebrow">12&Prime; X 16&Prime; PRINTS</p>
   <h1>Every print starts<br>as a starting point.</h1>
-  <p class="shop-sub">$15 per premade design. Love it as-is? Add it to your cart. Wrong school, wrong name, wrong vibe? Tell me what you're picturing — +$10 to make it yours. I'll confirm the final design and total before anything prints.</p>
+  <p class="shop-sub">Tell me what you're picturing. $10 to make it yours. I'll confirm the final design and total before anything prints.</p>
 </header>
 
 <main class="container">
@@ -39,16 +39,16 @@
       <canvas id="modalCanvas"></canvas>
     </div>
     <div class="modal-body">
-      <p class="eyebrow" id="modalEyebrow">Template</p>
+      <p class="eyebrow" id="modalEyebrow">Print</p>
       <h2 id="modalTitle">Botanical No. 1</h2>
-      <p class="modal-price">$15 base &middot; +$10 to customize</p>
-      <label class="as-is-check">
+      <p class="modal-price" id="modalPrice">$15 base &middot; +$10 to customize</p>
+      <label class="as-is-check" id="modalAsIsWrapper">
         <input type="checkbox" id="modalAsIs">
         <span>As is, no changes &mdash; skip the customization fee</span>
       </label>
-      <label class="modal-label" for="modalCustomization">What would you like changed?</label>
-      <textarea id="modalCustomization" rows="4" placeholder="e.g. change the name to &quot;Sarah&quot;, swap the flower color to blush pink, add today's date at the bottom..."></textarea>
-      <p class="modal-hint">Describe everything you'd like different from the template shown. I'll review your note and confirm the final price before printing.</p>
+      <label class="modal-label" id="modalQuestionLabel" for="modalCustomization">What would you like changed?</label>
+      <textarea id="modalCustomization" rows="4" placeholder="e.g. change the school to Collaged University, make the background pink..."></textarea>
+      <p class="modal-hint" id="modalHint">Describe everything you'd like different from the print shown. I'll review your note and confirm the final price before printing.</p>
       <button class="btn btn-cherry" id="modalAddBtn">Add to cart</button>
     </div>
   </div>
@@ -57,7 +57,7 @@
 <footer class="site-footer">
   <div class="container">
     <span>&copy; <span id="year"></span> Collaged Prints</span>
-    <span>All designs are original and rights-owned by Collaged Prints.</span>
+    <span>Made by Weezy</span>
   </div>
 </footer>
 

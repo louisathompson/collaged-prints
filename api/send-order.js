@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, phone, items, estimatedBase } = req.body || {};
+  const { name, email, phone, paymentMethod, items, estimatedBase } = req.body || {};
 
   if (!name || !email || !phone || !Array.isArray(items) || items.length === 0) {
     return res.status(400).json({ error: 'Missing required order fields' });
@@ -49,7 +49,8 @@ export default async function handler(req, res) {
     <h2>New order request</h2>
     <p><strong>Name:</strong> ${escapeHtml(name)}<br>
        <strong>Email:</strong> ${escapeHtml(email)}<br>
-       <strong>Phone:</strong> ${escapeHtml(phone)}</p>
+       <strong>Phone:</strong> ${escapeHtml(phone)}<br>
+       <strong>Payment method:</strong> ${escapeHtml(paymentMethod || 'Not specified')}</p>
     <p><strong>Order total (includes $10 flat fee per customized item and shipping):</strong> $${estimatedBase}</p>
     <table style="border-collapse:collapse;width:100%;">
       <thead>
@@ -64,19 +65,60 @@ export default async function handler(req, res) {
   `;
 
   const customerHtml = `
-    <h2>Thanks, ${escapeHtml(name)} — I've got your order request.</h2>
-    <p>Here's what you sent:</p>
-    <table style="border-collapse:collapse;width:100%;">
-      <thead>
-        <tr>
-          <th style="text-align:left;padding:10px;border-bottom:2px solid #333;">Template</th>
-          <th style="text-align:left;padding:10px;border-bottom:2px solid #333;">Requested changes</th>
-        </tr>
-      </thead>
-      <tbody>${itemsListHtml}</tbody>
+  <div style="background-color:#F5F1E8; padding:40px 20px; font-family:Arial, Helvetica, sans-serif;">
+    <table role="presentation" width="100%" style="max-width:560px; margin:0 auto; border-collapse:collapse; background-color:#F5F1E8;">
+      <tr>
+        <td style="padding-bottom:24px; text-align:center;">
+          <span style="font-family:Arial, Helvetica, sans-serif; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#5F6B54; font-weight:bold;">Collaged Prints</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom:8px; text-align:center;">
+          <span style="font-family:Arial, Helvetica, sans-serif; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:#7C8B6F;">Order Request Received</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom:28px; text-align:center;">
+          <h1 style="font-family:Georgia, 'Times New Roman', serif; font-weight:normal; font-size:30px; color:#1A1A1A; margin:0;">Thanks, ${escapeHtml(name)}.</h1>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-bottom:24px; text-align:center;">
+          <p style="font-size:14px; color:#4A4A45; margin:0; line-height:1.6;">I've got your order request. Here's what you sent:</p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table role="presentation" width="100%" style="border-collapse:collapse; background-color:#FFFFFF; border:1px solid rgba(26,26,26,0.14);">
+            <thead>
+              <tr>
+                <th style="text-align:left; padding:12px; font-family:Arial, Helvetica, sans-serif; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#1A1A1A; border-bottom:2px solid #1A1A1A;">Print</th>
+                <th style="text-align:left; padding:12px; font-family:Arial, Helvetica, sans-serif; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#1A1A1A; border-bottom:2px solid #1A1A1A;">Requested Changes</th>
+              </tr>
+            </thead>
+            <tbody>${itemsListHtml}</tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-top:24px; text-align:center;">
+          <p style="font-size:15px; color:#1A1A1A; margin:0;">Order total: <strong>$${estimatedBase}</strong></p>
+          <p style="font-size:12px; color:#4A4A45; margin:8px 0 0;">(includes a $10 flat fee for any item with customization notes, plus shipping — already included above)</p>
+          <p style="font-size:13px; color:#4A4A45; margin:10px 0 0;">Payment method: <strong>${escapeHtml(paymentMethod || 'Not specified')}</strong></p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-top:28px; text-align:center;">
+          <p style="font-size:14px; color:#4A4A45; margin:0; line-height:1.6;">I'll review your notes and follow up to confirm the print design before anything goes to print.</p>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-top:40px; text-align:center;">
+          <span style="display:inline-block; border:1.5px solid #B8332F; color:#B8332F; padding:4px 10px; border-radius:3px; font-family:Arial, Helvetica, sans-serif; font-size:10px; letter-spacing:1.5px; text-transform:uppercase;">Made by Weezy</span>
+        </td>
+      </tr>
     </table>
-    <p>Order total: <strong>$${estimatedBase}</strong> (includes a $10 flat fee for any item with customization notes, plus shipping — already included above).</p>
-    <p>I'll review your notes and follow up to confirm the print design before anything goes to print.</p>
+  </div>
   `;
 
   try {

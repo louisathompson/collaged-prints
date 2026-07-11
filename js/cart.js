@@ -33,6 +33,8 @@ const Cart = {
       thumbnail: item.thumbnail,
       customization: item.customization || '',
       asIs: !!item.asIs,
+      price: item.price || TEMPLATE_PRICE,
+      skipCustomizationFee: !!item.skipCustomizationFee,
     });
     Cart.save(items);
   },
@@ -58,8 +60,8 @@ const Cart = {
   },
 
   baseEstimate(items) {
-    const templatesTotal = items.length * TEMPLATE_PRICE;
-    const customizationTotal = items.filter(i => !i.asIs && (i.customization || '').trim().length > 0).length * CUSTOMIZATION_FEE;
+    const templatesTotal = items.reduce((sum, i) => sum + (i.price || TEMPLATE_PRICE), 0);
+    const customizationTotal = items.filter(i => !i.asIs && !i.skipCustomizationFee && (i.customization || '').trim().length > 0).length * CUSTOMIZATION_FEE;
     const shipping = items.length ? SHIPPING : 0;
     return templatesTotal + customizationTotal + shipping;
   },

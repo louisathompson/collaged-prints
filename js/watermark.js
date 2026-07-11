@@ -24,6 +24,24 @@ function drawWatermarkedImage(canvas, imageSrc, callback) {
   img.src = imageSrc;
 }
 
+// For products that aren't a premade design being protected (e.g. the
+// "100% Custom" explainer card) — draws the image plain, no watermark.
+function drawPlainImage(canvas, imageSrc, callback) {
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = function () {
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    if (callback) callback();
+  };
+  img.onerror = function () {
+    console.error('Could not load image:', imageSrc);
+  };
+  img.src = imageSrc;
+}
+
 function applyDiagonalTile(ctx, width, height) {
   ctx.save();
 
