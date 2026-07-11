@@ -1,0 +1,112 @@
+.board {
+  position: relative;
+  min-height: 820px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-line);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(124,139,111,0.10), transparent 40%),
+    radial-gradient(circle at 85% 70%, rgba(217,164,65,0.12), transparent 45%),
+    var(--color-cream);
+}
+
+.board-intro {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  padding: 100px 28px 40px;
+  margin: 0 auto 0 6%;
+}
+
+@media (max-width: 900px) {
+  .board-intro { margin: 0 auto; padding: 64px 24px 24px; text-align: center; }
+}
+
+.board-title {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+}
+
+.board-sub {
+  margin: 22px 0 28px;
+  color: var(--color-ink-soft);
+  font-size: 1.02rem;
+  max-width: 440px;
+}
+
+@media (max-width: 900px) {
+  .board-sub { margin-left: auto; margin-right: auto; }
+}
+
+.board-hint {
+  position: absolute;
+  bottom: 18px;
+  right: 28px;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--color-ink-soft);
+  z-index: 1;
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .board-hint { display: none; }
+}
+
+.drag-piece {
+  position: absolute;
+  z-index: 10;
+  cursor: grab;
+  transform: rotate(var(--r, 0deg));
+  transition: none;
+  touch-action: none;
+  user-select: none;
+}
+
+.drag-piece img {
+  border-radius: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.drag-piece.dragging {
+  cursor: grabbing;
+  z-index: 20;
+  transition: none;
+}
+
+@media (max-width: 720px) {
+  .board { min-height: 680px; }
+  .drag-piece { transform: rotate(var(--r, 0deg)) scale(0.75); }
+}
+
+/* ---------------- How it works ---------------- */
+
+.how-it-works {
+  padding: 72px 28px 96px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 36px;
+}
+
+@media (max-width: 780px) {
+  .steps { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.step-num {
+  font-size: 2.2rem;
+  color: var(--color-cherry);
+}
+
+.step h3 {
+  font-size: 1.3rem;
+  margin: 10px 0 8px;
+}
+
+.step p {
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+  margin: 0;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collaged Prints — Custom 12×16 Art Prints</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="wordmark">Collaged Prints</a>
+    <ul class="links">
+      <li><a href="shop.html">Print Shop</a></li>
+      <li><span class="hide-mobile"><a href="cart.html" class="cart-link">Cart <span class="cart-count" id="navCartCount">0</span></a></span></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="board" id="board">
+  <div class="board-intro">
+    <p class="eyebrow">12&Prime; × 16&Prime; custom prints</p>
+    <h1 class="board-title">College meets<br>collaged.</h1>
+    <p class="board-sub">Pick a print, tell me what to change, I'll make it yours.<br>Drag the pieces around — this board is yours to mess with too.</p>
+    <a href="shop.html" class="btn btn-cherry">Browse templates</a>
+  </div>
+
+  <!-- Draggable collage pieces. Swap the src on these <img> tags for your
+       own PNGs — drop files into /assets/collage/ and update the paths. -->
+  <div class="drag-piece" data-rotate="-6" style="top:70%; left:80%; width:196px;">
+    <img src="assets/collage/collage-dog-embroidery.png" alt="" draggable="false">
+  </div>
+  <div class="drag-piece" data-rotate="5" style="top:16%; left:56%; width:315px;">
+    <img src="assets/collage/collage-college-collage-book.png" alt="" draggable="false">
+  </div>
+  <div class="drag-piece" data-rotate="-4" style="top:58%; left:46%; width:442px;">
+    <img src="assets/collage/collage-college-pennant.png" alt="" draggable="false">
+  </div>
+  <div class="drag-piece" data-rotate="7" style="top:14%; left:82%; width:315px;">
+    <img src="assets/collage/collage-yall-come-magnet.png" alt="" draggable="false">
+  </div>
+  <div class="drag-piece" data-rotate="17" style="top:6%; left:34%; width:400px;">
+    <img src="assets/collage/collage-hamilton-pennant.png" alt="" draggable="false">
+  </div>
+  <div class="drag-piece" data-rotate="9" style="top:34%; left:37%; width:272px;">
+    <img src="assets/collage/collage-drinking-school-button.png" alt="" draggable="false">
+  </div>
+  <div class="drag-piece" data-rotate="-5" style="top:68%; left:10%; width:337px;">
+    <img src="assets/collage/collage-thinking-of-you-postcard.png" alt="" draggable="false">
+  </div>
+
+  <p class="board-hint">↳ everything on this board can be dragged</p>
+</header>
+
+<section class="how-it-works container">
+  <p class="eyebrow">How it works</p>
+  <div class="steps">
+    <div class="step">
+      <span class="step-num display">1</span>
+      <h3>Pick a template</h3>
+      <p>Browse the shop and add any design to your cart.</p>
+    </div>
+    <div class="step">
+      <span class="step-num display">2</span>
+      <h3>Tell me your changes</h3>
+      <p>Names, colors, wording — describe it in your own words.</p>
+    </div>
+    <div class="step">
+      <span class="step-num display">3</span>
+      <h3>Send the request</h3>
+      <p>I'll email/text you a confirmation, and reach out to finalize details &amp; payment before printing and shipping ($7 flat).</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>&copy; <span id="year"></span> Collaged Prints</span>
+    <span>All designs are original and rights-owned by Collaged Prints.</span>
+  </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/drag.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

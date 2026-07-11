@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Cart — Collaged Prints</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="wordmark">Collaged Prints</a>
+    <ul class="links">
+      <li><a href="shop.html">Print Shop</a></li>
+      <li><a href="cart.html" class="cart-link">Cart <span class="cart-count" id="navCartCount">0</span></a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="cart-hero container">
+  <p class="eyebrow">Your order</p>
+  <h1>Almost there.</h1>
+</header>
+
+<main class="container cart-layout">
+  <section class="cart-items" id="cartItems">
+    <!-- Rendered by cart-page.js -->
+  </section>
+
+  <aside class="cart-summary">
+    <h2>Order request</h2>
+
+    <div class="summary-line">
+      <span>Templates</span>
+      <span id="sumTemplateCount">0 items</span>
+    </div>
+    <div class="summary-line">
+      <span>Customization (flat $10 each)</span>
+      <span id="sumCustomization">—</span>
+    </div>
+    <div class="summary-line">
+      <span>Shipping</span>
+      <span id="sumShipping">$0</span>
+    </div>
+    <div class="summary-line summary-total">
+      <span>Total</span>
+      <span id="sumTotal">$0</span>
+    </div>
+    <p class="summary-disclaimer">*Total reflects a flat $10 fee for any item with customization notes. I'll confirm your final print design with you before printing.</p>
+
+    <form id="contactForm" class="contact-form">
+      <label for="custName">Name</label>
+      <input type="text" id="custName" name="name" required>
+
+      <label for="custEmail">Email</label>
+      <input type="email" id="custEmail" name="email" required>
+
+      <label for="custPhone">Phone</label>
+      <input type="tel" id="custPhone" name="phone" required>
+
+      <button type="submit" class="btn btn-cherry" id="placeOrderBtn">Place order request</button>
+      <p class="form-status" id="formStatus" role="status"></p>
+    </form>
+  </aside>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>&copy; <span id="year"></span> Collaged Prints</span>
+    <span>All designs are original and rights-owned by Collaged Prints.</span>
+  </div>
+</footer>
+
+<script src="js/cart.js"></script>
+<script src="js/cart-page.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
