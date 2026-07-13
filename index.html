@@ -19,6 +19,7 @@
   </div>
 </nav>
 
+<div class="home-flow">
 <header class="board" id="board">
   <div class="board-intro">
     <p class="eyebrow">12&Prime; × 16&Prime; custom prints</p>
@@ -26,33 +27,34 @@
     <p class="board-sub">Pick a print, tell me what to change, I'll make it yours.</p>
     <a href="shop.html" class="btn btn-cherry">Print Shop</a>
   </div>
-
-  <!-- Draggable collage pieces. Swap the src on these <img> tags for your
-       own PNGs — drop files into /assets/collage/ and update the paths. -->
-  <div class="drag-piece piece-dog" data-rotate="-6" style="top:70%; left:80%; width:196px;">
-    <img src="assets/collage/collage-dog-embroidery.png" alt="" draggable="false">
-  </div>
-  <div class="drag-piece piece-book" data-rotate="5" style="top:16%; left:56%; width:315px;">
-    <img src="assets/collage/collage-college-collage-book.png" alt="" draggable="false">
-  </div>
-  <div class="drag-piece piece-pennant-pink" data-rotate="-4" style="top:58%; left:46%; width:442px;">
-    <img src="assets/collage/collage-college-pennant.png" alt="" draggable="false">
-  </div>
-  <div class="drag-piece piece-yall" data-rotate="7" style="top:14%; left:82%; width:315px;">
-    <img src="assets/collage/collage-yall-come-magnet.png" alt="" draggable="false">
-  </div>
-  <div class="drag-piece piece-pennant-red" data-rotate="17" style="top:6%; left:34%; width:400px;">
-    <img src="assets/collage/collage-hamilton-pennant.png" alt="" draggable="false">
-  </div>
-  <div class="drag-piece piece-button" data-rotate="9" style="top:34%; left:37%; width:272px;">
-    <img src="assets/collage/collage-drinking-school-button.png" alt="" draggable="false">
-  </div>
-  <div class="drag-piece piece-postcard" data-rotate="-5" style="top:68%; left:10%; width:337px;">
-    <img src="assets/collage/collage-thinking-of-you-postcard.png" alt="" draggable="false">
-  </div>
-
-  <p class="board-hint">↳ everything on this board can be dragged</p>
 </header>
+
+<!-- Fixed decorative collage pieces. Swap the src on these <img> tags for
+     your own PNGs — drop files into /assets/collage/ and update the paths.
+     Overlays the hero on desktop; reflows after "How it works" on phone. -->
+<div class="collage-pieces" id="collagePieces">
+  <div class="drag-piece piece-dog" style="top:56%; left:74%; width:15%; --r:-4deg;">
+    <img src="assets/collage/collage-dog-embroidery.png" alt="">
+  </div>
+  <div class="drag-piece piece-book" style="top:11%; left:45%; width:24%; --r:4deg;">
+    <img src="assets/collage/collage-college-collage-book.png" alt="">
+  </div>
+  <div class="drag-piece piece-pennant-pink" style="top:57%; left:32%; width:40%; --r:8deg;">
+    <img src="assets/collage/collage-college-pennant.png" alt="">
+  </div>
+  <div class="drag-piece piece-yall" style="top:7%; left:73%; width:15%; --r:-6deg;">
+    <img src="assets/collage/collage-yall-come-magnet.png" alt="">
+  </div>
+  <div class="drag-piece piece-pennant-red" style="top:6%; left:36%; width:25%; --r:11deg;">
+    <img src="assets/collage/collage-hamilton-pennant.png" alt="">
+  </div>
+  <div class="drag-piece piece-button" style="top:73%; left:8%; width:22%; --r:-3deg;">
+    <img src="assets/collage/collage-drinking-school-button.png" alt="">
+  </div>
+  <div class="drag-piece piece-postcard" style="top:56%; left:6%; width:18%; --r:-2deg;">
+    <img src="assets/collage/collage-thinking-of-you-postcard.png" alt="">
+  </div>
+</div>
 
 <section class="how-it-works container">
   <p class="eyebrow">How it works</p>
@@ -74,6 +76,7 @@
     </div>
   </div>
 </section>
+</div>
 
 <footer class="site-footer">
   <div class="container">
@@ -83,7 +86,6 @@
 </footer>
 
 <script src="js/cart.js"></script>
-<script src="js/drag.js"></script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
