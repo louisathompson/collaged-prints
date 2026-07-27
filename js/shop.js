@@ -20,6 +20,9 @@ const TEMPLATES = [
   { id: 'tpl-14', name: 'Vintage Collage: Good Luck', src: 'assets/templates/tpl-vintage-collage-luck.jpg' },
   { id: 'tpl-15', name: 'Go Gate', src: 'assets/templates/tpl-go-gate-bear.jpg' },
   { id: 'tpl-16', name: 'Hamilton, New York', src: 'assets/templates/tpl-new-york-bubble-letters.jpg' },
+  { id: 'tpl-17', name: 'With Love, From Villanova', src: 'assets/templates/tpl-with-love-from-villanova.jpg' },
+  { id: 'tpl-18', name: 'Matchbooks!', src: 'assets/templates/tpl-hamilton-matchbooks-collage.jpg' },
+  { id: 'tpl-19', name: 'Somewhere', src: 'assets/templates/tpl-hamilton-somewhere.jpg' },
   {
     id: 'tpl-custom',
     name: '100% Custom',
