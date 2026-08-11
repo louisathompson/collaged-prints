@@ -4,6 +4,11 @@
 // (for non-design offer cards). skipCustomizationFee means the price already
 // covers customization, so the flat $10 fee doesn't stack on top.
 const TEMPLATES = [
+  { id: 'tpl-20', name: 'Button Board', src: 'assets/templates/tpl-vintage-button-board.jpg' },
+  { id: 'tpl-21', name: 'Wolf of Broad Street', src: 'assets/templates/tpl-wolf-of-broad-street.jpg' },
+  { id: 'tpl-22', name: 'The Reveal', src: 'assets/templates/tpl-the-reveal.jpg' },
+  { id: 'tpl-23', name: 'All About That Gate', src: 'assets/templates/tpl-all-about-that-gate.jpg' },
+  { id: 'tpl-26', name: 'No Place Like This', src: 'assets/templates/tpl-colgate-magazine.jpg' },
   { id: 'tpl-01', name: 'I Left My Heart in Hamilton', src: 'assets/templates/tpl-heart-hamilton-postcard-front.jpg' },
   { id: 'tpl-02', name: 'With Love From Hamilton', src: 'assets/templates/tpl-love-from-hamilton-postcard-back.jpg' },
   { id: 'tpl-03', name: 'Coldgate', src: 'assets/templates/tpl-coldgate-ski-goggles.jpg' },
@@ -23,6 +28,8 @@ const TEMPLATES = [
   { id: 'tpl-17', name: 'With Love, From Villanova', src: 'assets/templates/tpl-with-love-from-villanova.jpg' },
   { id: 'tpl-18', name: 'Matchbooks!', src: 'assets/templates/tpl-hamilton-matchbooks-collage.jpg' },
   { id: 'tpl-19', name: 'Somewhere', src: 'assets/templates/tpl-hamilton-somewhere.jpg' },
+  { id: 'tpl-24', name: 'Colgate Crew', src: 'assets/templates/tpl-colgate-crew.jpg' },
+  { id: 'tpl-25', name: 'Colgate Swim', src: 'assets/templates/tpl-colgate-swim.jpg' },
   {
     id: 'tpl-custom',
     name: '100% Custom',
@@ -36,27 +43,50 @@ const TEMPLATES = [
   },
 ];
 
+// A different kind of product from the standard 12x16 template prints:
+// one surprise set, not a specific design being customized. Rendered in
+// its own section below the main grid (see #specialtyGrid in shop.html).
+const SPECIALTY_PRODUCTS = [
+  {
+    id: 'mini-4pack',
+    name: 'Mini Print Surprise Pack',
+    src: 'assets/templates/tpl-mini-prints-sampler.jpg',
+    price: 30,
+    priceLabel: '$30 &middot; set of 4 mini prints',
+    eyebrow: 'Mini Prints',
+    questionLabel: "Seen a mini print design on my Instagram you'd love in the mix? Tell me here (no promises — it's a surprise!):",
+    placeholder: 'e.g. the "pour decisions" one, the Colgate bear...',
+    hint: "You'll get 4 surprise mini prints picked by me — no repeats. Suggestions aren't guaranteed, but I'll try to work your favorites in.",
+    skipCustomizationFee: true,
+  },
+];
+
+const ALL_PRODUCTS = [...TEMPLATES, ...SPECIALTY_PRODUCTS];
+
 const DEFAULT_PLACEHOLDER = "e.g. change the school to Collaged University, make the background pink...";
 const DEFAULT_QUESTION_LABEL = "What would you like changed?";
+const DEFAULT_EYEBROW = "Print";
 
 const grid = document.getElementById('templateGrid');
+const specialtyGrid = document.getElementById('specialtyGrid');
 
-TEMPLATES.forEach((tpl) => {
+function renderCard(tpl, container) {
   const card = document.createElement('article');
   card.className = 'tpl-card';
   card.id = tpl.id;
   const price = tpl.price || 15;
+  const priceLabel = tpl.priceLabel || `$${price} base`;
   card.innerHTML = `
     <div class="tpl-thumb">
       <canvas data-src="${tpl.src}"></canvas>
     </div>
     <div class="tpl-info">
       <h3>${tpl.name}</h3>
-      <p class="tpl-price">$${price} base</p>
+      <p class="tpl-price">${priceLabel}</p>
       <button class="btn btn-outline tpl-add" data-id="${tpl.id}">Customize / Add</button>
     </div>
   `;
-  grid.appendChild(card);
+  container.appendChild(card);
 
   const canvas = card.querySelector('canvas');
   if (tpl.noWatermark) {
@@ -64,11 +94,15 @@ TEMPLATES.forEach((tpl) => {
   } else {
     drawWatermarkedImage(canvas, tpl.src);
   }
-});
+}
+
+TEMPLATES.forEach((tpl) => renderCard(tpl, grid));
+SPECIALTY_PRODUCTS.forEach((tpl) => renderCard(tpl, specialtyGrid));
 
 // ---------- Modal ----------
 const backdrop = document.getElementById('modalBackdrop');
 const modalCanvas = document.getElementById('modalCanvas');
+const modalEyebrow = document.getElementById('modalEyebrow');
 const modalTitle = document.getElementById('modalTitle');
 const modalPrice = document.getElementById('modalPrice');
 const modalAsIsWrapper = document.getElementById('modalAsIsWrapper');
@@ -79,29 +113,35 @@ const modalAsIs = document.getElementById('modalAsIs');
 const modalAddBtn = document.getElementById('modalAddBtn');
 const modalClose = document.getElementById('modalClose');
 
+const DEFAULT_HINT = modalHint.textContent;
+
 let activeTemplate = null;
 
-grid.addEventListener('click', (e) => {
+document.body.addEventListener('click', (e) => {
   const btn = e.target.closest('.tpl-add');
   if (!btn) return;
-  const tpl = TEMPLATES.find(t => t.id === btn.dataset.id);
+  const tpl = ALL_PRODUCTS.find(t => t.id === btn.dataset.id);
   openModal(tpl);
 });
 
 function openModal(tpl) {
   activeTemplate = tpl;
+  modalEyebrow.textContent = tpl.eyebrow || DEFAULT_EYEBROW;
   modalTitle.textContent = tpl.name;
   modalCustomization.value = '';
   modalCustomization.placeholder = tpl.placeholder || DEFAULT_PLACEHOLDER;
   modalQuestionLabel.textContent = tpl.questionLabel || DEFAULT_QUESTION_LABEL;
+  modalHint.textContent = tpl.hint || DEFAULT_HINT;
   modalHint.style.display = tpl.hideHint ? 'none' : '';
   modalAsIs.checked = false;
   modalCustomization.disabled = false;
 
   const price = tpl.price || 15;
-  modalPrice.innerHTML = tpl.skipCustomizationFee
-    ? `$${price} base`
-    : `$${price} base &middot; +$10 to customize`;
+  modalPrice.innerHTML = tpl.priceLabel
+    ? tpl.priceLabel
+    : tpl.skipCustomizationFee
+      ? `$${price} base`
+      : `$${price} base &middot; +$10 to customize`;
 
   // The "as is" option doesn't make sense for a fully custom order —
   // there's no default design to leave unchanged.
@@ -159,6 +199,6 @@ modalAddBtn.addEventListener('click', () => {
 // modal directly instead of just scrolling to its card.
 const linkedId = window.location.hash.replace('#', '');
 if (linkedId) {
-  const linkedTpl = TEMPLATES.find(t => t.id === linkedId);
+  const linkedTpl = ALL_PRODUCTS.find(t => t.id === linkedId);
   if (linkedTpl) openModal(linkedTpl);
 }
