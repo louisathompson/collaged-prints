@@ -4,6 +4,18 @@
 // (for non-design offer cards). skipCustomizationFee means the price already
 // covers customization, so the flat $10 fee doesn't stack on top.
 const TEMPLATES = [
+  { id: 'tpl-38', name: 'Coldby', src: 'assets/templates/tpl-coldby.jpg' },
+  { id: 'tpl-33', name: 'AXO 99&cent;', src: 'assets/templates/tpl-bucknell-axo.jpg' },
+  { id: 'tpl-34', name: 'Bucknell-opoly', src: 'assets/templates/tpl-bucknell-opoly.jpg' },
+  { id: 'tpl-35', name: 'Lewisburg Matchbook', src: 'assets/templates/tpl-bucknell-matches.jpg' },
+  { id: 'tpl-36', name: 'In the Middle of Nowhere', src: 'assets/templates/tpl-bucknell-nowhere.jpg' },
+  { id: 'tpl-37', name: 'Watch This, Classic', src: 'assets/templates/tpl-bucknell-classic-collage.jpg' },
+  { id: 'tpl-27', name: 'Happy to Be', src: 'assets/templates/tpl-happy-to-be.jpg' },
+  { id: 'tpl-28', name: 'Colgate Cowboy', src: 'assets/templates/tpl-colgate-cowboy.jpg' },
+  { id: 'tpl-29', name: 'Go Gate Water Ski', src: 'assets/templates/tpl-gate-water-ski.jpg' },
+  { id: 'tpl-30', name: 'Go Bison Water Ski', src: 'assets/templates/tpl-bison-water-ski.jpg' },
+  { id: 'tpl-31', name: 'Greatest Kept Secret', src: 'assets/templates/tpl-bucknell-magazine.jpg' },
+  { id: 'tpl-32', name: "It'll Always Be Go Gate", src: 'assets/templates/tpl-gate-surf.jpg' },
   { id: 'tpl-20', name: 'Button Board', src: 'assets/templates/tpl-vintage-button-board.jpg' },
   { id: 'tpl-21', name: 'Wolf of Broad Street', src: 'assets/templates/tpl-wolf-of-broad-street.jpg' },
   { id: 'tpl-22', name: 'The Reveal', src: 'assets/templates/tpl-the-reveal.jpg' },
