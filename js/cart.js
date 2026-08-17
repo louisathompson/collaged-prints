@@ -59,10 +59,10 @@ const Cart = {
     Cart.updateBadge();
   },
 
-  baseEstimate(items) {
+  baseEstimate(items, { waiveShipping = false } = {}) {
     const templatesTotal = items.reduce((sum, i) => sum + (i.price || TEMPLATE_PRICE), 0);
     const customizationTotal = items.filter(i => !i.asIs && !i.skipCustomizationFee && (i.customization || '').trim().length > 0).length * CUSTOMIZATION_FEE;
-    const shipping = items.length ? SHIPPING : 0;
+    const shipping = items.length && !waiveShipping ? SHIPPING : 0;
     return templatesTotal + customizationTotal + shipping;
   },
 
