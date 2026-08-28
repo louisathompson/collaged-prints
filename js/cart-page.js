@@ -7,22 +7,7 @@ const contactForm = document.getElementById('contactForm');
 const placeOrderBtn = document.getElementById('placeOrderBtn');
 const formStatus = document.getElementById('formStatus');
 const payOptions = document.getElementById('payOptions');
-const preorderCheckbox = document.getElementById('preorderCheckbox');
-const preorderNote = document.getElementById('preorderNote');
-const summaryDisclaimer = document.getElementById('summaryDisclaimer');
 let selectedPaymentMethod = '';
-
-const PICKUP_WINDOW = 'August 29, 11am–2pm';
-const DEFAULT_DISCLAIMER = summaryDisclaimer.textContent;
-const PREORDER_DISCLAIMER = `*Preorders require prepayment to reserve your print(s), picked up at the poster sale on ${PICKUP_WINDOW}. Come shop more prints in person while you're there! I'll confirm your final print(s) with you before printing.`;
-
-preorderCheckbox.addEventListener('change', () => {
-  const isPreorder = preorderCheckbox.checked;
-  preorderNote.classList.toggle('visible', isPreorder);
-  summaryDisclaimer.textContent = isPreorder ? PREORDER_DISCLAIMER : DEFAULT_DISCLAIMER;
-  placeOrderBtn.textContent = isPreorder ? 'Place preorder' : 'Place order request';
-  updateSummary(Cart.get());
-});
 
 payOptions.addEventListener('click', (e) => {
   const btn = e.target.closest('.pay-option');
@@ -66,16 +51,15 @@ function renderCart() {
 }
 
 function updateSummary(items) {
-  const isPreorder = preorderCheckbox.checked;
   const templateCount = items.length;
   const templatesTotal = items.reduce((sum, i) => sum + (i.price || 15), 0);
   const customizedCount = items.filter(i => !i.asIs && !i.skipCustomizationFee && (i.customization || '').trim().length > 0).length;
-  const shipping = templateCount && !isPreorder ? 7 : 0;
-  const total = Cart.baseEstimate(items, { waiveShipping: isPreorder });
+  const shipping = templateCount ? 7 : 0;
+  const total = Cart.baseEstimate(items);
 
   sumTemplateCount.textContent = `${templateCount} item${templateCount === 1 ? '' : 's'} · $${templatesTotal}`;
   sumCustomization.textContent = customizedCount ? `${customizedCount} item${customizedCount === 1 ? '' : 's'} · $${customizedCount * 10}` : '—';
-  sumShipping.textContent = isPreorder ? 'Waived' : `$${shipping}`;
+  sumShipping.textContent = `$${shipping}`;
   sumTotal.textContent = `$${total}`;
 
   placeOrderBtn.disabled = templateCount === 0;
@@ -113,20 +97,16 @@ contactForm.addEventListener('submit', async (e) => {
     return;
   }
 
-  const isPreorder = preorderCheckbox.checked;
-
   const payload = {
     name: document.getElementById('custName').value.trim(),
     email: document.getElementById('custEmail').value.trim(),
     phone: document.getElementById('custPhone').value.trim(),
     paymentMethod: selectedPaymentMethod,
-    isPreorder,
-    pickupWindow: isPreorder ? PICKUP_WINDOW : null,
     items: items.map(i => ({
       template: i.templateName,
       customization: i.customization || '(no changes requested)',
     })),
-    estimatedBase: Cart.baseEstimate(items, { waiveShipping: isPreorder }),
+    estimatedBase: Cart.baseEstimate(items),
   };
 
   placeOrderBtn.disabled = true;
@@ -148,7 +128,7 @@ contactForm.addEventListener('submit', async (e) => {
     console.error(err);
     formStatus.textContent = "Something went wrong sending your request — please try again, or reach out to me directly.";
     placeOrderBtn.disabled = false;
-    placeOrderBtn.textContent = isPreorder ? 'Place preorder' : 'Place order request';
+    placeOrderBtn.textContent = 'Place order request';
   }
 });
 

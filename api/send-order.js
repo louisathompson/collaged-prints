@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, phone, paymentMethod, items, estimatedBase, isPreorder, pickupWindow } = req.body || {};
+  const { name, email, phone, paymentMethod, items, estimatedBase } = req.body || {};
 
   if (!name || !email || !phone || !Array.isArray(items) || items.length === 0) {
     return res.status(400).json({ error: 'Missing required order fields' });
@@ -45,19 +45,13 @@ export default async function handler(req, res) {
     </tr>
   `).join('');
 
-  const preorderBanner = isPreorder ? `
-    <p style="background:#fff3cd;border:1px solid #ffe08a;border-radius:6px;padding:12px 14px;">
-      <strong>PREORDER — pickup ${escapeHtml(pickupWindow || '')}.</strong> Requires prepayment to reserve; no shipping needed.
-    </p>` : '';
-
   const ownerHtml = `
-    <h2>New ${isPreorder ? 'preorder' : 'order'} request</h2>
-    ${preorderBanner}
+    <h2>New order request</h2>
     <p><strong>Name:</strong> ${escapeHtml(name)}<br>
        <strong>Email:</strong> ${escapeHtml(email)}<br>
        <strong>Phone:</strong> ${escapeHtml(phone)}<br>
        <strong>Payment method:</strong> ${escapeHtml(paymentMethod || 'Not specified')}</p>
-    <p><strong>Order total${isPreorder ? ' (shipping waived — preorder pickup)' : ' (includes $10 flat fee per customized item and shipping)'}:</strong> $${estimatedBase}</p>
+    <p><strong>Order total (includes $10 flat fee per customized item and shipping):</strong> $${estimatedBase}</p>
     <table style="border-collapse:collapse;width:100%;">
       <thead>
         <tr>
@@ -74,7 +68,7 @@ export default async function handler(req, res) {
   try {
     await sendViaResend(RESEND_API_KEY, {
       to: SHOP_OWNER_EMAIL,
-      subject: `New ${isPreorder ? 'PREORDER' : 'order'} request from ${name}`,
+      subject: `New order request from ${name}`,
       html: ownerHtml,
     });
   } catch (err) {
