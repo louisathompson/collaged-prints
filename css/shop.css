@@ -49,24 +49,13 @@
   }
 }
 
-.specialty-section {
-  padding-top: 24px;
-  max-width: 640px;
-}
-
-.specialty-section h2,
 .main-grid-section h2 {
   font-size: clamp(1.6rem, 3vw, 2.2rem);
   margin: 8px 0 12px;
 }
 
-.specialty-grid {
-  max-width: 340px;
-}
-
 .main-grid-section {
-  padding-top: 40px;
-  border-top: 1px solid var(--color-line);
+  padding-top: 12px;
 }
 
 .main-grid-section > .eyebrow,

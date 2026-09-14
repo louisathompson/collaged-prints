@@ -46,32 +46,11 @@ const TEMPLATES = [
   },
 ];
 
-// A different kind of product from the standard 12x16 template prints:
-// one surprise set, not a specific design being customized. Rendered in
-// its own section below the main grid (see #specialtyGrid in shop.html).
-const SPECIALTY_PRODUCTS = [
-  {
-    id: 'mini-4pack',
-    name: 'Mini Print Surprise Pack',
-    src: 'assets/templates/tpl-mini-prints-sampler.jpg',
-    price: 30,
-    priceLabel: '$30 &middot; set of 4 mini prints',
-    eyebrow: 'Mini Prints',
-    questionLabel: "Seen a mini print design on my Instagram you'd love in the mix? Tell me here (no promises — it's a surprise!):",
-    placeholder: 'e.g. the "pour decisions" one, the Colgate bear...',
-    hint: "You'll get 4 surprise mini prints picked by me — no repeats. Suggestions aren't guaranteed, but I'll try to work your favorites in.",
-    skipCustomizationFee: true,
-  },
-];
-
-const ALL_PRODUCTS = [...TEMPLATES, ...SPECIALTY_PRODUCTS];
-
 const DEFAULT_PLACEHOLDER = "e.g. change the school to Collaged University, make the background pink...";
 const DEFAULT_QUESTION_LABEL = "What would you like changed?";
 const DEFAULT_EYEBROW = "Print";
 
 const grid = document.getElementById('templateGrid');
-const specialtyGrid = document.getElementById('specialtyGrid');
 
 function renderCard(tpl, container) {
   const card = document.createElement('article');
@@ -100,7 +79,6 @@ function renderCard(tpl, container) {
 }
 
 TEMPLATES.forEach((tpl) => renderCard(tpl, grid));
-SPECIALTY_PRODUCTS.forEach((tpl) => renderCard(tpl, specialtyGrid));
 
 // ---------- Modal ----------
 const backdrop = document.getElementById('modalBackdrop');
@@ -123,7 +101,7 @@ let activeTemplate = null;
 document.body.addEventListener('click', (e) => {
   const btn = e.target.closest('.tpl-add');
   if (!btn) return;
-  const tpl = ALL_PRODUCTS.find(t => t.id === btn.dataset.id);
+  const tpl = TEMPLATES.find(t => t.id === btn.dataset.id);
   openModal(tpl);
 });
 
@@ -202,6 +180,6 @@ modalAddBtn.addEventListener('click', () => {
 // modal directly instead of just scrolling to its card.
 const linkedId = window.location.hash.replace('#', '');
 if (linkedId) {
-  const linkedTpl = ALL_PRODUCTS.find(t => t.id === linkedId);
+  const linkedTpl = TEMPLATES.find(t => t.id === linkedId);
   if (linkedTpl) openModal(linkedTpl);
 }
